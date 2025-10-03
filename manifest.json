@@ -1,0 +1,11 @@
+{
+  "id": "minimal-immortal",
+  "name": "幻想都市",
+  "short_name": "YUME都市",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#111111",
+  "theme_color": "#222222",
+  "description": "最小構成で永続する幻想都市。Canvasだけで魂を持つ。",
+  "lang": "ja-JP"
+}
