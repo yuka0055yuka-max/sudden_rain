@@ -29,19 +29,18 @@
     resize();
 
     function init() {
-      // 雨
       rain = Array.from({ length: 150 }, () => ({
         x: Math.random() * c.width,
         y: Math.random() * c.height,
         s: 3 + Math.random() * 3
       }));
-      // ビル
+
       buildings = [];
       for (let i = 0; i < c.width; i += 80) {
         const h = 100 + Math.random() * 100;
         buildings.push({ x: i, y: c.height - 300 - h, w: 60, h });
       }
-      // 車
+
       cars = Array.from({ length: 5 }, () => ({
         x: Math.random() * c.width,
         y: c.height - 80,
@@ -49,12 +48,14 @@
         s: 1 + Math.random() * 2,
         d: Math.random() > 0.5 ? 1 : -1
       }));
-      // 信号機
-      trafficLights = [];
-      const gap = 200;
-      for (let i = gap / 2; i < c.width; i += gap) {
-        trafficLights.push({ x: i, y: c.height - 100, state: 0, timer: 0 });
-      }
+
+      // 信号機（1基のみ）
+      trafficLights = [{
+        x: c.width / 2,
+        y: c.height - 100,
+        state: 0,
+        timer: 0
+      }];
     }
 
     function drawBackground() {
@@ -118,12 +119,10 @@
 
     function drawTrafficLights() {
       trafficLights.forEach(light => {
-        // 状態遷移
         if (++light.timer > 150) {
           light.state = (light.state + 1) % 3;
           light.timer = 0;
         }
-        // 本体
         x.fillStyle = "#333";
         x.fillRect(light.x, light.y - 60, 20, 60);
         const colors = ["#f00", "#ff0", "#0f0"];
@@ -138,7 +137,6 @@
 
     function drawCars() {
       cars.forEach(car => {
-        // 信号機赤なら停止判定
         const stop = trafficLights.some(light =>
           car.x > light.x - 20 && car.x < light.x + 20 && light.state === 0
         );
